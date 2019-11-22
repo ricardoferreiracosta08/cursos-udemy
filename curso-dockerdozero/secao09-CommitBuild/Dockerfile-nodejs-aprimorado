@@ -1,0 +1,20 @@
+# Usar base image própria para stack
+FROM node:12-alpine
+# cria um diretório para os arquivos da app
+WORKDIR /app
+
+# Mudanças menos frequentes devem ficar no topo - "leverage caching"
+# Evitar instalar node com apt-get install
+
+# Install app dependencies
+# O codigo (hello.js) vai mudar com frequencia. 
+# Assim, nao é eficaz reinstalar dependencias (package.json) toda vez que executar o build :) 
+COPY package.json .
+
+# Bundle app
+RUN npm install
+
+COPY hello.js .
+
+EXPOSE 8080
+CMD ["node", "hello.js"]
