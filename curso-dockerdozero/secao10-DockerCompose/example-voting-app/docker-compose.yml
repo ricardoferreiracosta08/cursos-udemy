@@ -43,6 +43,8 @@ services:
   db:
     image: postgres:9.4
     container_name: db
+    environment:
+      POSTGRES_PASSWORD: password
     volumes:
       - "db-data:/var/lib/postgresql/data"
     networks:
